@@ -104,20 +104,12 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   cors: [
-    'https://checkout.stripe.com', 
-    'http://localhost:3000',  
-    'http://145.223.74.227',        
-    'http://192.168.1.8:3000',
-    'https://momifa-test2.vercel.app',  // Add your Vercel domain
+    'https://checkout.stripe.com', // Add your Vercel domain
     process.env.PAYLOAD_PUBLIC_SERVER_URL || ''
 ].filter(Boolean),
 
 csrf: [
-    'https://checkout.stripe.com', 
-    'http://localhost:3000',    
-    'http://145.223.74.227',     
-    'http://192.168.1.8:3000',
-    'https://momifa-test2.vercel.app',  // Add your Vercel domain        
+    'https://checkout.stripe.com', // Add your Vercel domain        
     process.env.PAYLOAD_PUBLIC_SERVER_URL || ''
 ].filter(Boolean),
   

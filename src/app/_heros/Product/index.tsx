@@ -61,7 +61,7 @@ export const ProductHero: React.FC<{
   }, [])
   useEffect(() => {
     async function getImages(){
-      const images = await fetch(`http://localhost:3000/api/images?productId=${id}`)
+      const images = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/images?productId=${id}`)
       const imagesArray = await images.json()
       setimagess(imagesArray)
       setimagesLoading(prev=> prev === true ?false : prev)
@@ -75,9 +75,9 @@ export const ProductHero: React.FC<{
   
         // Fetch all requests concurrently
         const [res, res2, res3] = await Promise.all([
-          fetch(`http://localhost:3000/api/wishlist?where[product][equals]=${id}&where[user][equals]=${user?.id}`),
-          fetch(`http://localhost:3000/api/feedback?where[product][equals]=${id}&depth=2`),
-          fetch(`http://localhost:3000/api/products?limit=100`)
+          fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlist?where[product][equals]=${id}&where[user][equals]=${user?.id}`),
+          fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/feedback?where[product][equals]=${id}&depth=2`),
+          fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?limit=100`)
         ]);
   
         // Parse responses concurrently
@@ -116,7 +116,7 @@ export const ProductHero: React.FC<{
   }, [id, user?.id, categories]); // Add dependencies for re-execution when necessary
   
   async function PostReview(bodyObject){
-    const postReview = await fetch(`http://localhost:3000/api/feedback`, {
+    const postReview = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/feedback`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json", 
@@ -139,7 +139,7 @@ export const ProductHero: React.FC<{
       }
     }else{
       setadded(false)
-      const req = await fetch(`http://localhost:3000/api/wishlist/${wishlistID}`, {method: "DELETE"})
+      const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlist/${wishlistID}`, {method: "DELETE"})
       const res = await req.json()
     }    
   }
@@ -148,9 +148,9 @@ export const ProductHero: React.FC<{
       const splittedURLArray = image.split("/");
   
       if (metaImage) {
-        const indexToReplace = imagess.indexOf(`http://localhost:3000/media/${splittedURLArray[splittedURLArray.length - 1]}`)
+        const indexToReplace = imagess.indexOf(`${process.env.NEXT_PUBLIC_SERVER_URL}/media/${splittedURLArray[splittedURLArray.length - 1]}`)
         imagess.splice(indexToReplace, 1)
-        const newImages = [...imagess, `http://localhost:3000/media/${displayedImage.filename}`]
+        const newImages = [...imagess, `${process.env.NEXT_PUBLIC_SERVER_URL}/media/${displayedImage.filename}`]
         setimagess(newImages)
         const newObjext  = {...displayedImage, filename: splittedURLArray[splittedURLArray.length - 1]}
         setdisplayedImage(newObjext)

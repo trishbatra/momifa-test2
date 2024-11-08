@@ -237,7 +237,7 @@ export const CartPage: React.FC<{
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/address?where[user][equals]=${user.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/address?where[user][equals]=${user.id}`);
         if (response.ok) {
           const data = await response.json();
           setAddresses(data.docs); // Assuming the API returns an array of address objects in 'docs'
@@ -273,7 +273,7 @@ export const CartPage: React.FC<{
         };
       if (saveAddress) {
         try {
-          const response = await fetch('http://localhost:3000/api/address', {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/address`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -308,7 +308,7 @@ export const CartPage: React.FC<{
 
   const handleDeleteAddress = async (addressId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/address/${addressId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/address/${addressId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
